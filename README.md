@@ -5,7 +5,6 @@ LUISS Guido Carli — Bachelor in Management & AI
 ## Team Members  
 - Petra Babic (Team Captain)  
 - Boyan Aleksandrov
-- Ayan Alybay
 - Koray Aydin
 
 ---
