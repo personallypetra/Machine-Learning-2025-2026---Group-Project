@@ -119,6 +119,16 @@ While accuracy remains relatively similar across all models, substantial differe
 
 The tuned Random Forest model achieves the strongest overall performance, particularly in terms of F1-score, indicating a superior balance between identifying high-risk departments and limiting false alarms. Logistic Regression provides a strong and interpretable baseline, and tuning improves its performance but it does not fully match the effectiveness of Random Forest. 
 
+We included XGBoost because it usually performs well on tabular datasets and can capture more complex interactions than simpler models. The target variable was created by marking departments with a final compliance score below 70 as “high risk”.
+
+After splitting the data (80% train, 20% test), we trained a baseline XGBoost model with default parameters. Its test performance was already strong: • Accuracy: around 0.94 • Precision: ~0.89 • Recall: very high at ~0.98 • F1-score: ~0.93 • AUC: ~0.96
+
+The high recall is especially important here. In compliance, missing a risky department is more costly than flagging one extra.
+
+We then performed a small grid search over three hyperparameters: n_estimators, max_depth, and learning_rate. The best combination was: • n_estimators = 200 • max_depth = 3 • learning_rate = 0.01
+
+The tuned model produced similar results to the baseline. Accuracy and precision changed slightly, but recall stayed almost the same and remained very high. This shows that XGBoost is stable on this dataset and consistently identifies risky departments.
+
 ## Confusion Matrix Analysis 
 
 Confusion matriz analysis reveals important differences in error patterns. Logistic Regression produces a higher number of false positives and false negatives, leading to unnecessary compliance investigations and missed high-risk departments.
@@ -135,3 +145,34 @@ Although Logistic Regression offers interpretability and serves as a valuable ba
 By reducing both missed risks and unwarranted audits, Random Forest aligns most closely with organisational compliance objectives and is therefore selected as the final model. 
 
 
+# 5. Conclusions  
+The project shows that machine learning can help highlight which departments inside an organisation might face higher compliance risks.
+By bringing together EDA, model development, and interpretability tools, we managed to form a clearer picture of the factors connected with lower compliance performance.
+
+5.1 Main Observations
+	•	XGBoost performed the best overall when balancing accuracy and recall.
+	•	The model was particularly good at identifying nearly all high-risk cases, which is crucial for compliance teams.
+	•	SHAP results give a clearer sense of which variables push a department’s risk level up or down.
+Common influential factors include audit scores, operational risk exposure, reporting gaps, and resource availability.
+
+5.2 Ethical Points
+
+A system like this must remain understandable.
+Risk predictions should support human decisions, not replace them.
+Any model also needs regular monitoring and retraining so that it does not drift or become biased over time.
+
+5.3 Future Ideas
+	•	Adding time-based data would help track how departments evolve across years.
+	•	Clustering methods could reveal hidden patterns or groups among departments.
+	•	Text data from audit reports could add more context.
+	•	Deploying the model with a monitoring component could help organisations track changes more dynamically.
+
+# Repository Structure
+/images/                      # Figures used in README
+main.ipynb                   # Full project notebook
+README.md                    # Project documentation
+environment.yml              # Environment dependencies
+data/org_compliance_data.db  # Dataset (not pushed if large)
+
+
+Project follows all mandatory requirements from the Machine Learning course (2025/2026).
