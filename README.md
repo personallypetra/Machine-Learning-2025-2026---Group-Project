@@ -5,24 +5,22 @@ LUISS Guido Carli — Bachelor in Management & AI
 ## Team Members  
 - Petra Babic (Team Captain)  
 - Boyan Aleksandrov
+- Ayan Alybay
 - Koray Aydin
 
 ---
 
 # 1. Introduction  
 
-This project, called Compliance Radar, looks at how we can use machine learning to spot possible compliance risks inside organisations. Our dataset includes 709 departments and a range of operational, behavioural, and audit-related indicators.
-The idea is to build a system that helps identify which departments might require extra attention and why.
+The **Compliance Radar** project aims to identify potential non-compliance signals and ethical risk patterns within organisations.  
+Using the dataset `org_compliance_data.db`, which includes operational metrics, audit indicators, engagement variables, financial scores, and departmental activity logs, our goal is to build a **data-driven framework** that:
 
-To do this, we follow the main steps discussed in class:
-	1.	loading and inspecting the data,
-	2.	exploring patterns and distributions,
-	3.	preparing the variables for modelling,
-	4.	training several machine learning models,
-	5.	comparing their performance,
-	6.	interpreting the results with tools such as feature importance and SHAP.
+- Detects unusual or potentially risky behaviours,  
+- Highlights the features most correlated with non-compliance,  
+- Provides interpretable and actionable insights for internal governance,  
+- Goes beyond prediction to support ethical reasoning and accountability.
 
-The goal is not only prediction. We also want to understand why certain departments appear riskier and how the organisation could react. This combination of performance and interpretability is essential for topics like compliance, where decisions must be transparent and defensible.
+This project follows the Machine Learning course structure and integrates both **quantitative modelling** and **interpretability-focused analysis** to strengthen organisational integrity.
 
 ---
 
@@ -130,50 +128,6 @@ The tuned Random Forest model reduces false positives from 8 to 4 and false nega
 ## ROC Curve Analysis 
 
 ROC curve comparisons further confirm that Random Forest exhibits stronger discriminative ability across classification tresholds compared to Logistic Regression. The higher are under the curve (AUC) indicates more reliable ranking of departments by risk level.
-We included XGBoost because it usually performs well on tabular datasets and can capture more complex interactions than simpler models.
-The target variable was created by marking departments with a final compliance score below 70 as “high risk”.
-
-After splitting the data (80% train, 20% test), we trained a baseline XGBoost model with default parameters.
-Its test performance was already strong:
-	•	Accuracy: around 0.94
-	•	Precision: ~0.89
-	•	Recall: very high at ~0.98
-	•	F1-score: ~0.93
-	•	AUC: ~0.96
-
-The high recall is especially important here. In compliance, missing a risky department is more costly than flagging one extra.
-
-We then performed a small grid search over three hyperparameters:
-n_estimators, max_depth, and learning_rate.
-The best combination was:
-	•	n_estimators = 200
-	•	max_depth = 3
-	•	learning_rate = 0.01
-
-The tuned model produced similar results to the baseline. Accuracy and precision changed slightly, but recall stayed almost the same and remained very high.
-This shows that XGBoost is stable on this dataset and consistently identifies risky departments.
-
-# 5. Conclusions  
-The project shows that machine learning can help highlight which departments inside an organisation might face higher compliance risks.
-By bringing together EDA, model development, and interpretability tools, we managed to form a clearer picture of the factors connected with lower compliance performance.
-
-5.1 Main Observations
-	•	XGBoost performed the best overall when balancing accuracy and recall.
-	•	The model was particularly good at identifying nearly all high-risk cases, which is crucial for compliance teams.
-	•	SHAP results give a clearer sense of which variables push a department’s risk level up or down.
-Common influential factors include audit scores, operational risk exposure, reporting gaps, and resource availability.
-
-5.2 Ethical Points
-
-A system like this must remain understandable.
-Risk predictions should support human decisions, not replace them.
-Any model also needs regular monitoring and retraining so that it does not drift or become biased over time.
-
-5.3 Future Ideas
-	•	Adding time-based data would help track how departments evolve across years.
-	•	Clustering methods could reveal hidden patterns or groups among departments.
-	•	Text data from audit reports could add more context.
-	•	Deploying the model with a monitoring component could help organisations track changes more dynamically.
 
 ## Final Model Selection
 
