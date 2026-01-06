@@ -106,6 +106,17 @@ We also analyse:
 # Results Summary  
 Across models, accuracy is generally high, but the main differences appear in **precision, recall, and F1-score**, which matter most for compliance monitoring.
 
+------------------------------------------------------------------------------------
+model               | Accuracy | Precision | Recall | F1-score
+-----------------------------------------------------------------------------------
+Logistic Regression |  0.87    |   0.80    |  0.77  |  0.79
+------------------------------------------------------------------------------------
+Random Forest       |  0.91    |   0.90    |  0.81  |  0.85
+------------------------------------------------------------------------------------
+XGBoost             |  0.92    |   0.94    |  0.79  |  0.86
+------------------------------------------------------------------------------------
+^all metrics above are for given model's tuned versions 
+
 ## Logistic Regression  
 Provides a clear and interpretable benchmark, but misses a meaningful portion of high-risk departments (false negatives), motivating ensemble methods.
 
